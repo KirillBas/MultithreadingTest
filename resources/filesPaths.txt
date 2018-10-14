@@ -1,0 +1,9 @@
+src\main\java\ru\basharin\resources\file1.txt
+src\main\java\ru\basharin\resources\file2.txt
+src\main\java\ru\basharin\resources\file3.txt
+src\main\java\ru\basharin\resources\file4.txt
+src\main\java\ru\basharin\resources\file5.txt
+src\main\java\ru\basharin\resources\file6.txt
+src\main\java\ru\basharin\resources\file8.txt
+src\main\java\ru\basharin\resources\file7.txt
+src\main\java\ru\basharin\resources\file9.txt
