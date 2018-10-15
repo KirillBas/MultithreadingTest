@@ -49,5 +49,8 @@ public class JavaIORepository implements Runnable{
     // TODO: 15.10.2018 не решена задача параллельности, если передать в run метод readFile, то все потоки выполнят его
     @Override
     public void run() {
+        for(String resultRead: result) {
+            readFile(resultRead);
+        }
     }
 }
