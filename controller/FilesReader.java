@@ -7,20 +7,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JavaIORepository implements Runnable{
-    private final String FILE_NAME = "src\\main\\java\\ru\\basharin\\resources\\filesPaths.txt";
-    private final File file = new File(FILE_NAME);
-    private Thread thread;
-    private volatile List<String> result = readPathFiles();
+public class FilesReader implements Runnable {
+    private String fileName;
 
-    public JavaIORepository(Thread thread) {
-        new Thread(this);
+    public FilesReader(String fileName) {
+        this.fileName = fileName;
     }
 
-    private List<String> readPathFiles() {
+    public FilesReader() {
+        this.fileName = fileName;
+    }
+
+    public List<String> readPathFiles() {
+        String FILE_NAME = "src\\main\\java\\ru\\basharin\\resources\\filesPaths.txt";
         List<String> stringList = new ArrayList<>();
         String line;
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader br = new BufferedReader(new java.io.FileReader(FILE_NAME))) {
             while ((line = br.readLine()) != null) {
                 stringList.add(line);
             }
@@ -30,9 +32,11 @@ public class JavaIORepository implements Runnable{
         }
         return null;
     }
-
-    private void readFile(String string) {
-        File file = new File(string);
+    // TODO: 15.10.2018 не решена задача параллельности, если передать в run метод readFile, то все потоки выполнят его
+    @Override
+    public void run() {
+        System.out.println("start thread: " + Thread.currentThread().getName());
+        File file = new File(fileName);
         String line;
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             System.out.println("Расширение файла: " + file.getName());
@@ -44,13 +48,7 @@ public class JavaIORepository implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    // TODO: 15.10.2018 не решена задача параллельности, если передать в run метод readFile, то все потоки выполнят его
-    @Override
-    public void run() {
-        for(String resultRead: result) {
-            readFile(resultRead);
-        }
+        System.out.println("finish thread: " + Thread.currentThread().getName());
+        System.out.println("");
     }
 }
